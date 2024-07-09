@@ -36,7 +36,7 @@ body {
 nav {
   display: grid;
   place-items: center;
-  min-height: 100vh;
+  height: 100vh;
   background-color: #f1efef;
   width: 25%;
   padding: 10px 20px;
@@ -101,4 +101,53 @@ nav {
   width: 100%;
   font-size: 1.2rem;
   display: none;
+}
+
+
+@media (max-width: 768px) {
+  .pizza img {
+    width: 300px;
+    height: 220px;
+  }
+
+  .pizza {
+    height: auto;
+    margin: 10px 0;
+  }
+
+  .pizza-container {
+    width: 100%;
+    padding: 0;
+    margin: 20px 10%;
+    text-align: center;
+  }
+
+  .container {
+    display: block;
+  }
+
+  nav {
+    width: 90%;
+    margin-left: 5%;
+    height: 600px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .container {
+    display: block;
+  }
+  
+  .pizza-container {
+    width: 95%;
+    margin: 50px 5%;
+  }
+
+  nav {
+    width: 86.5%;
+    height: 650px;
+    margin-top: 100px;
+    margin-left: 5%;
+    font-size: 1.5rem;
+  }
 }
