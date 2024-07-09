@@ -63,7 +63,7 @@ const checkCashRegister = () => {
 
   let changeDue = Number(cash.value) - price;
   let reveCid = [...cid].reverse();
-  let den = [100, 20, 10, 5, 1, 0.25, 0.1, 0.05, 0.01];
+  const den = [100, 20, 10, 5, 1, 0.25, 0.1, 0.05, 0.01];
   let result = { status: 'OPEN', change: [] };
   let totalCID = parseFloat(
     cid
@@ -80,14 +80,27 @@ const checkCashRegister = () => {
     result.status = 'CLOSED';
   }
 
-  for (let i = 0; i <= reveCid.length; i++) {
+  const update = (change) => {
+    const currencyNameMap = {
+      PENNY: 'Pennies',
+      NICKEL: 'Nickels',
+      DIME: 'Dimes',
+      QUARTER: 'Quarters',
+      ONE: 'Ones',
+      FIVE: 'Fives',
+      TEN: 'Tens',
+      TWENTY: 'Twenties',
+      'ONE HUNDRED': 'Hundreds',
+    };
+
+  for (let i = 0; i <= reveCid.length; i+1) {
     if (changeDue >= den[i] && changeDue > 0) {
       let count = 0;
       let total = reveCid[i][1];
       while (total > 0 && changeDue >= den[i]) {
         total -= den[i];
         changeDue = parseFloat((changeDue -= den[i]).toFixed(2));
-        count++;
+        count += 1;
       }
       if (count > 0) {
         result.change.push([reveCid[i][0], count * den[i]]);
@@ -108,19 +121,6 @@ const checkResults = () => {
   }
   checkCashRegister();
 };
-
-const update = (change) => {
-  const currencyNameMap = {
-    PENNY: 'Pennies',
-    NICKEL: 'Nickels',
-    DIME: 'Dimes',
-    QUARTER: 'Quarters',
-    ONE: 'Ones',
-    FIVE: 'Fives',
-    TEN: 'Tens',
-    TWENTY: 'Twenties',
-    'ONE HUNDRED': 'Hundreds',
-  };
 
   if (change) {
     change.forEach((changeArr) => {

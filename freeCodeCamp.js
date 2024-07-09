@@ -11,6 +11,10 @@ const cid = [
   ['ONE HUNDRED', 100],
 ];
 
+function formatChange(change) {
+    return change.map((item) => `${item[0]}: $${item[1].toFixed(2)}`).join(' ');
+  }
+
 function changes(changeDue, cid) {
   const change = [];
   let totalCid = cid.reduce((acc, curr) => acc + curr[1], 0);
@@ -86,6 +90,3 @@ document.getElementById('purchase-btn').addEventListener('click', () => {
     ).innerText = `Status: OPEN ${formatChange(change.change)}`;
   }
 });
-function formatChange(change) {
-  return change.map((item) => `${item[0]}: $${item[1].toFixed(2)}`).join(' ');
-}

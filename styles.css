@@ -137,11 +137,6 @@ nav {
   .container {
     display: block;
   }
-  
-  .pizza-container {
-    width: 95%;
-    margin: 50px 5%;
-  }
 
   nav {
     width: 86.5%;
@@ -149,5 +144,10 @@ nav {
     margin-top: 100px;
     margin-left: 5%;
     font-size: 1.5rem;
+  }
+
+  .pizza-container {
+    width: 95%;
+    margin: 50px 5%;
   }
 }
