@@ -43,7 +43,9 @@ const cid = [
 const formatResults = (status, change) => {
   displayChangeDue.innerHTML = `<p>Status: ${status}</p>`;
   change.map(
-    (money) => (displayChangeDue.innerHTML += `<p>${money[0]}: $${money[1]}</p>`));
+    (money) =>
+      (displayChangeDue.innerHTML += `<p>${money[0]}: $${money[1]}</p>`)
+  );
 };
 
 const checkCashRegister = () => {
@@ -54,7 +56,8 @@ const checkCashRegister = () => {
   }
 
   if (Number(cash.value) === price) {
-    displayChangeDue.innerHTML = '<p>No change due - customer paid with exact cash</p>';
+    displayChangeDue.innerHTML =
+      '<p>No change due - customer paid with exact cash</p>';
     cash.value = '';
     return;
   }
@@ -91,34 +94,34 @@ const checkCashRegister = () => {
       'ONE HUNDRED': 'Hundreds',
     };
 
-  for (let i = 0; i <= reversedCid.length; i+1) {
-    if (changeDue >= denominations[i] && changeDue > 0) {
-      let count = 0;
-      let total = reversedCid[i][1];
-      while (total > 0 && changeDue >= denominations[i]) {
-        total -= denominations[i];
-        changeDue = parseFloat((changeDue -= denominations[i]).toFixed(2));
-        count += 1;
-      }
-      if (count > 0) {
-        result.change.push([reversedCid[i][0], count * denominations[i]]);
+    for (let i = 0; i <= reversedCid.length; i + 1) {
+      if (changeDue >= denominations[i] && changeDue > 0) {
+        let count = 0;
+        let total = reversedCid[i][1];
+        while (total > 0 && changeDue >= denominations[i]) {
+          total -= denominations[i];
+          changeDue = parseFloat((changeDue -= denominations[i]).toFixed(2));
+          count += 1;
+        }
+        if (count > 0) {
+          result.change.push([reversedCid[i][0], count * denominations[i]]);
+        }
       }
     }
-  }
-  if (changeDue > 0) {
-    return (displayChangeDue.innerHTML = '<p>Status: INSUFFICIENT_FUNDS</p>');
-  }
+    if (changeDue > 0) {
+      return (displayChangeDue.innerHTML = '<p>Status: INSUFFICIENT_FUNDS</p>');
+    }
 
-  formatResults(result.status, result.change);
-  updateUI(result.change);
-};
+    formatResults(result.status, result.change);
+    updateUI(result.change);
+  };
 
-const checkResults = () => {
-  if (!cash.value) {
-    return;
-  }
-  checkCashRegister();
-};
+  const checkResults = () => {
+    if (!cash.value) {
+      return;
+    }
+    checkCashRegister();
+  };
 
   // Update cid if change is passed in
   if (change) {
@@ -130,7 +133,9 @@ const checkResults = () => {
 
   cash.value = '';
   priceScreen.textContent = `Total: $${price}`;
-  cashDrawerDisplay.innerHTML = `<p><strong>Change in drawer:</strong></p>${cid.map((money) => `<p>${currencyNameMap[money[0]]}: $${money[1]}</p>`).join('')}`;
+  cashDrawerDisplay.innerHTML = `<p><strong>Change in drawer:</strong></p>${cid
+    .map((money) => `<p>${currencyNameMap[money[0]]}: $${money[1]}</p>`)
+    .join('')}`;
 };
 
 purchaseBtn.addEventListener('click', checkResults);
