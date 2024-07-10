@@ -59,7 +59,7 @@ const updateUI = (change) => {
     TWENTY: 'Twenties',
     'ONE HUNDRED': 'Hundreds',
   };
-  // Update cid if change is passed in
+
   if (change) {
     change.forEach((changeArr) => {
       const targetArr = cid.find((cidArr) => cidArr[0] === changeArr[0]);
@@ -90,9 +90,7 @@ const checkCashRegister = () => {
   const reversedCid = [...cid].reverse();
   const denominations = [100, 20, 10, 5, 1, 0.25, 0.1, 0.05, 0.01];
   const result = { status: 'OPEN', change: [] };
-  const totalCID = parseFloat(
-    cid.map((total) => total[1]).reduce((prev, curr) => prev + curr).toFixed(2)
-  );
+  const totalCID = parseFloat(cid.map((total) => total[1]).reduce((prev, curr) => prev + curr).toFixed(2));
 
   if (totalCID < changeDue) {
     displayChangeDue.innerHTML = '<p>Status: INSUFFICIENT_FUNDS</p>';
@@ -103,13 +101,13 @@ const checkCashRegister = () => {
     result.status = 'CLOSED';
   }
 
-  for (let i = 0; i < reversedCid.length; i++) {  // Changed to `<` to avoid out of bounds error
+  for (let i = 0; i < reversedCid.length; i++) {
     if (changeDue >= denominations[i] && changeDue > 0) {
       let count = 0;
       let total = reversedCid[i][1];
       while (total > 0 && changeDue >= denominations[i]) {
         total -= denominations[i];
-        changeDue = parseFloat((changeDue - denominations[i]).toFixed(2));  // Updated to `changeDue - denominations[i]`
+        changeDue = parseFloat((changeDue - denominations[i]).toFixed(2));
         count++;
       }
       if (count > 0) {
