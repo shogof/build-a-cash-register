@@ -91,7 +91,7 @@ const checkCashRegister = () => {
   const denominations = [100, 20, 10, 5, 1, 0.25, 0.1, 0.05, 0.01];
   const result = { status: 'OPEN', change: [] };
   const totalCID = parseFloat(cid.map((total) => total[1])
-  .reduce((prev, curr) => prev + curr).toFixed(2));
+    .reduce((prev, curr) => prev + curr).toFixed(2));
 
   if (totalCID < changeDue) {
     displayChangeDue.innerHTML = '<p>Status: INSUFFICIENT_FUNDS</p>';
@@ -102,14 +102,14 @@ const checkCashRegister = () => {
     result.status = 'CLOSED';
   }
 
-  for (let i = 0; i < reversedCid.length; i++) {
+  for (let i = 0; i < reversedCid.length; i += 1) {
     if (changeDue >= denominations[i] && changeDue > 0) {
       let count = 0;
       let total = reversedCid[i][1];
       while (total > 0 && changeDue >= denominations[i]) {
         total -= denominations[i];
         changeDue = parseFloat((changeDue - denominations[i]).toFixed(2));
-        count++;
+        count += 1;
       }
       if (count > 0) {
         result.change.push([reversedCid[i][0], count * denominations[i]]);
@@ -138,6 +138,8 @@ purchaseBtn.addEventListener('click', checkResults);
 cash.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') {
     checkResults();
+    keyboard.style.display = 'none';
+    disChangeDue.style.display = 'block';
   }
 });
 
