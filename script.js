@@ -90,7 +90,8 @@ const checkCashRegister = () => {
   const reversedCid = [...cid].reverse();
   const denominations = [100, 20, 10, 5, 1, 0.25, 0.1, 0.05, 0.01];
   const result = { status: 'OPEN', change: [] };
-  const totalCID = parseFloat(cid.map((total) => total[1]).reduce((prev, curr) => prev + curr).toFixed(2));
+  const totalCID = parseFloat(cid.map((total) => total[1])
+  .reduce((prev, curr) => prev + curr).toFixed(2));
 
   if (totalCID < changeDue) {
     displayChangeDue.innerHTML = '<p>Status: INSUFFICIENT_FUNDS</p>';
