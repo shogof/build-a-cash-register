@@ -42,8 +42,8 @@ const cid = [
 
 const formatResults = (status, change) => {
   displayChangeDue.innerHTML = `<p>Status: ${status}</p>`;
-  change.map(function (money) {
-    displayChangeDue.innerHTML += `<p>${money[0]}: $${money[1]}p>`;
+  change.forEach((money) => {
+    displayChangeDue.innerHTML += `<p>${money[0]}: $${money[1]}p></p>`;
   });
 };
 
@@ -95,21 +95,21 @@ const checkCashRegister = () => {
   );
 
   if (totalCID < changeDue) {
-    const newit = (displayChangeDue.innerHTML = '<p>Status: INSUFFICIENT_FUNDS</p>');
-    return newit;
+    displayChangeDue.innerHTML = '<p>Status: INSUFFICIENT_FUNDS</p>';
+    return;
   }
 
   if (totalCID === changeDue) {
     result.status = 'CLOSED';
   }
 
-  for (let i = 0; i <= reversedCid.length; i++) {
+  for (let i = 0; i < reversedCid.length; i++) {  // Changed to `<` to avoid out of bounds error
     if (changeDue >= denominations[i] && changeDue > 0) {
       let count = 0;
       let total = reversedCid[i][1];
       while (total > 0 && changeDue >= denominations[i]) {
         total -= denominations[i];
-        changeDue = parseFloat((changeDue -= denominations[i]).toFixed(2));
+        changeDue = parseFloat((changeDue - denominations[i]).toFixed(2));  // Updated to `changeDue - denominations[i]`
         count++;
       }
       if (count > 0) {
@@ -117,9 +117,10 @@ const checkCashRegister = () => {
       }
     }
   }
+
   if (changeDue > 0) {
-    const newItem = (displayChangeDue.innerHTML = '<p>Status: INSUFFICIENT_FUNDS</p>');
-    return newItem;
+    displayChangeDue.innerHTML = '<p>Status: INSUFFICIENT_FUNDS</p>';
+    return;
   }
 
   formatResults(result.status, result.change);
